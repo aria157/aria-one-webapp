@@ -1,0 +1,348 @@
+:root {
+  --bg: #ffffff;
+  --bg-soft: #f7f8ff;
+  --text-main: #111322;
+  --text-soft: #4a4f66;
+  --accent-yellow: #ffe93a;
+  --accent-pink: #ff9ad5;
+  --accent-mint: #8cf7d4;
+  --accent-blue: #7fd4ff;
+  --border-soft: #e4e5f5;
+  --radius-xl: 24px;
+  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.12);
+  --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  background: radial-gradient(circle at top right, #fef3ff, #f9fdff 40%, #ffffff);
+  color: var(--text-main);
+}
+
+/* Layout */
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.logo-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 20%, var(--accent-yellow), #ff7fd9);
+  box-shadow: 0 0 24px rgba(255, 233, 58, 0.7);
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-title {
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.logo-sub {
+  font-size: 0.75rem;
+  color: var(--text-soft);
+}
+
+.tagline {
+  font-size: 0.78rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px dashed rgba(17, 19, 34, 0.14);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 12px 20px 40px;
+}
+
+/* Hero */
+
+.hero {
+  margin: 8px 0 24px;
+}
+
+.hero h1 {
+  font-size: 2.1rem;
+  line-height: 1.15;
+  margin: 0 0 10px;
+}
+
+.highlight {
+  background: linear-gradient(90deg, var(--accent-pink), var(--accent-yellow));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero-text {
+  margin: 0 0 16px;
+  max-width: 560px;
+  color: var(--text-soft);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Buttons */
+
+.btn {
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-size: 0.86rem;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease,
+    background 0.12s ease, color 0.12s ease;
+}
+
+.btn.primary {
+  background: linear-gradient(120deg, var(--accent-yellow), var(--accent-pink));
+  color: #111322;
+  box-shadow: 0 12px 30px rgba(255, 233, 58, 0.45);
+}
+
+.btn.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 40px rgba(255, 233, 58, 0.55);
+}
+
+.btn.ghost {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-main);
+  border: 1px solid rgba(148, 163, 184, 0.45);
+}
+
+.btn.ghost:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+}
+
+.btn.subtle {
+  margin-top: 8px;
+}
+
+/* App shell */
+
+.app-shell {
+  margin-top: 16px;
+  background: linear-gradient(145deg, #ffffff, #f7f8ff);
+  border-radius: 28px;
+  padding: 14px 14px 18px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(209, 213, 255, 0.6);
+}
+
+/* Tabs */
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  background: rgba(248, 250, 252, 0.85);
+  border-radius: 999px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.tab {
+  flex: 1;
+  border-radius: 999px;
+  padding: 8px 10px;
+  font-size: 0.78rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-soft);
+  transition: background 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.tab.active {
+  background: radial-gradient(circle at 10% 0, var(--accent-yellow), #fff6c4);
+  color: #111322;
+  box-shadow: 0 8px 24px rgba(250, 204, 21, 0.45);
+}
+
+/* Panels */
+
+.tab-panels {
+  margin-top: 14px;
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.tab-panel h2 {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+}
+
+.panel-text {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+/* Record panel */
+
+.studio-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #111827, #020617);
+  color: #f9fafb;
+}
+
+.record-circle {
+  width: 172px;
+  height: 172px;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 20%, #ff6b73, #b91c1c);
+  box-shadow: 0 0 40px rgba(248, 113, 113, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.record-circle::before {
+  content: "";
+  position: absolute;
+  inset: 20px;
+  border-radius: inherit;
+  border: 2px dashed rgba(248, 250, 252, 0.8);
+}
+
+.record-label {
+  z-index: 1;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.studio-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.84rem;
+}
+
+.studio-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.4);
+  padding-bottom: 4px;
+}
+
+.studio-row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  color: rgba(209, 213, 219, 0.9);
+}
+
+.value {
+  color: #fef9c3;
+}
+
+/* Wallet + builder lists */
+
+.wallet-list,
+.builder-steps {
+  margin: 0 0 10px 18px;
+  padding: 0;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.wallet-list li,
+.builder-steps li {
+  margin-bottom: 6px;
+}
+
+/* Footer */
+
+.site-footer {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 10px 20px 24px;
+  font-size: 0.78rem;
+  color: var(--text-soft);
+}
+
+/* Responsive */
+
+@media (min-width: 768px) {
+  .page {
+    padding-top: 24px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+    gap: 28px;
+    align-items: center;
+  }
+
+  .hero-actions {
+    margin-top: 4px;
+  }
+
+  .app-shell {
+    margin-top: 24px;
+  }
+
+  .studio-card {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .record-circle {
+    margin: 0;
+  }
+}
