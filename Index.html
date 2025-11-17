@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ARIA ONE – Vocal Artist Identity System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo-block">
+      <div class="logo-dot"></div>
+      <div class="logo-text">
+        <span class="logo-title">ARIA ONE</span>
+        <span class="logo-sub">Vocal Artist Identity System</span>
+      </div>
+    </div>
+    <span class="tagline">Built for real human voices.</span>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <h1>Claim your voice.<br><span class="highlight">Own your sound.</span></h1>
+      <p class="hero-text">
+        ARIA ONE helps singer-songwriters verify their real vocals, protect
+        their creative identity, and build a trusted vocal artist wallet.
+      </p>
+
+      <div class="hero-actions">
+        <button class="btn primary" data-tab-target="record">
+          Launch Vocal Studio
+        </button>
+        <button class="btn ghost" data-tab-target="wallet">
+          Explore Artist Wallet
+        </button>
+      </div>
+    </section>
+
+    <section class="app-shell">
+      <div class="tabs">
+        <button class="tab active" data-tab="record">Record</button>
+        <button class="tab" data-tab="wallet">Wallet</button>
+        <button class="tab" data-tab="builder">Song Builder</button>
+      </div>
+
+      <div class="tab-panels">
+        <!-- Record tab -->
+        <div class="tab-panel active" id="tab-record">
+          <h2>Vocal Studio (Prototype)</h2>
+          <p class="panel-text">
+            This prototype lets you rehearse the flow of your vocal sessions.
+            The mic button and timer are just UI for now – audio capture will
+            be wired in a later build.
+          </p>
+
+          <div class="studio-card">
+            <div class="record-circle">
+              <span class="record-label">READY TO RECORD</span>
+            </div>
+            <div class="studio-info">
+              <div class="studio-row">
+                <span class="label">Session:</span>
+                <span class="value">ARIA ONE • Take 001</span>
+              </div>
+              <div class="studio-row">
+                <span class="label">Timer:</span>
+                <span class="value">00:00 • Prototype</span>
+              </div>
+              <div class="studio-row">
+                <span class="label">Mode:</span>
+                <span class="value">Verified Human Voice (coming soon)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wallet tab -->
+        <div class="tab-panel" id="tab-wallet">
+          <h2>Vocal Artist Wallet</h2>
+          <p class="panel-text">
+            Your ARIA ONE Vocal Artist Wallet will become your personal vault
+            of verified vocal sessions, ownership statements, and identity
+            proofs across platforms.
+          </p>
+
+          <ul class="wallet-list">
+            <li>🟡 Human-voice verification • Quantum grammar option</li>
+            <li>🟡 Vocal session logs with timestamps &amp; intent</li>
+            <li>🟡 Artist profile for royalties &amp; registrations</li>
+            <li>🟡 Future: ARIA KEYX utility, licensing, and splits</li>
+          </ul>
+
+          <button class="btn primary subtle">
+            Design my wallet journey
+          </button>
+        </div>
+
+        <!-- Song Builder tab -->
+        <div class="tab-panel" id="tab-builder">
+          <h2>Song Builder</h2>
+          <p class="panel-text">
+            The Song Builder will guide you from vocal idea to finished song,
+            step by step – from key and tempo to structure, stems, and
+            release-ready masters.
+          </p>
+
+          <ol class="builder-steps">
+            <li>Capture an inspired vocal idea.</li>
+            <li>Lock in key, tempo, and emotional tone.</li>
+            <li>Layer harmonies, doubles, and ad-libs.</li>
+            <li>Export stems for producers or DAWs.</li>
+            <li>Generate a release checklist and credits.</li>
+          </ol>
+
+          <button class="btn ghost subtle">
+            Map my first track
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© ARIA ONE • Synthwave Studios • Kiki.x Editions</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
