@@ -465,3 +465,12 @@ button:hover {
 h2, label {
   color: var(--accent-pink);
 }
+button {
+  background-color: var(--accent-yellow);
+  border: none;
+  color: #111322;
+  font-weight: bold;
+  padding: 0.6rem 1.2rem;
+  border-radius: 18px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
