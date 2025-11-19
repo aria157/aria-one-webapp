@@ -1,4 +1,11 @@
-:root {
+.wallet-card {
+  background: var(--bg-soft);
+  border: 1px solid var(--border-soft);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+}:root {
   --bg: #ffffff;
   --bg-soft: #f7f8ff;
   --text-main: #111322;
