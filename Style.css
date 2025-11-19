@@ -401,3 +401,30 @@ body {
   padding: 0.5rem 0;
   border-bottom: 1px solid var(--border-soft);
 }
+body {
+  background-color: var(--bg);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  padding: 2rem;
+}
+
+h1, h2, h3 {
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+button {
+  background-color: var(--accent-yellow);
+  color: var(--text-main);
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius-xl);
+  font-weight: bold;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background-color: var(--accent-pink);
+}
