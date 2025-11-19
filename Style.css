@@ -346,3 +346,58 @@ body {
     margin: 0;
   }
 }
+.wallet {
+  background-color: var(--bg-soft);
+  padding: 2rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+  max-width: 600px;
+  margin: 2rem auto;
+  color: var(--text-main);
+}
+
+.wallet h2 {
+  color: var(--accent-pink);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.wallet p {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.wallet-card {
+  background-color: white;
+  padding: 1.2rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 1.5rem;
+}
+
+.wallet-card label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.wallet-card input[type="file"] {
+  padding: 0.5rem;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+}
+
+.wallet-card input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+.voice-log {
+  list-style: none;
+  padding: 0;
+}
+
+.voice-log li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-soft);
+}
