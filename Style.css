@@ -462,3 +462,6 @@ button:hover {
   transform: scale(1.05);
   background-color: var(--accent-pink);
 }
+h2, label {
+  color: var(--accent-pink);
+}
