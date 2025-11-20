@@ -124,7 +124,39 @@
     <span>© ARIA ONE • Synthwave Studios • Kiki.x Editions</span>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Genie helper: paste an error, format a prompt for the VS Code "AI Quick Fix / Genie" extension -->
+  <button id="genie-button" aria-label="Open Genie helper" title="Open Genie helper" class="btn" style="position:fixed;right:18px;bottom:18px;z-index:9999;border-radius:999px;padding:10px 14px;">🪄 Genie</button>
+
+  <div id="genie-modal" role="dialog" aria-modal="true" aria-hidden="true" style="display:none;position:fixed;right:18px;bottom:72px;z-index:10000;width:360px;max-width:calc(100% - 36px);background:var(--bg);box-shadow:0 12px 40px rgba(0,0,0,0.18);border-radius:12px;padding:12px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;">
+      <strong>Send to Genie</strong>
+      <div>
+        <button id="genie-copy-btn" class="btn" style="margin-right:6px;padding:6px 10px;">Copy</button>
+        <button id="genie-open-ext" class="btn" style="padding:6px 10px;">Open Extension</button>
+      </div>
+    </div>
+
+    <label for="genie-input" style="font-size:0.85rem;color:var(--text-soft);">Paste error message or select text from code</label>
+    <textarea id="genie-input" rows="6" style="width:100%;margin-top:6px;padding:8px;border-radius:8px;border:1px solid var(--border-soft);font-family:monospace;" placeholder="Paste the error message or stack trace here"></textarea>
+
+    <div style="display:flex;gap:8px;margin-top:8px;align-items:center;">
+      <select id="genie-lang" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--border-soft);">
+        <option value="auto">Language: Auto-detect</option>
+        <option value="javascript">JavaScript</option>
+        <option value="typescript">TypeScript</option>
+        <option value="python">Python</option>
+        <option value="go">Go</option>
+        <option value="java">Java</option>
+        <option value="other">Other</option>
+      </select>
+      <button id="genie-generate" class="btn" style="padding:8px 12px;">Generate</button>
+    </div>
+
+    <div id="genie-result" style="margin-top:8px;display:none;font-size:0.9rem;background:var(--bg-soft);padding:8px;border-radius:8px;border:1px dashed var(--border-soft);white-space:pre-wrap;overflow:auto;max-height:220px;"></div>
+    <div style="margin-top:10px;font-size:0.8rem;color:var(--text-soft);">Tip: use the Copy button then paste into the Genie/AI Quick Fix input in VS Code.</div>
+  </div>
+
+  <script src="Script.js"></script>
 </body>
 </html>
 <section class="wallet">
