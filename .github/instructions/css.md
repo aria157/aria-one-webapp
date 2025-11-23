@@ -6,6 +6,8 @@ applyTo:
 
 # CSS Guidelines for ARIA ONE
 
+**Note**: The primary CSS is currently defined inline within `index.html` (lines 33-561). The external `Style.css` file appears to contain legacy code. When making CSS changes, work with the inline styles in `index.html` unless specifically refactoring to use external stylesheets.
+
 ## Design System
 Use the CSS variables defined in `:root` for consistency:
 - `--bg`: #050507 (primary background)
