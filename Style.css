@@ -141,6 +141,7 @@ body::after {
   background: linear-gradient(135deg, var(--neon-yellow), var(--neon-green));
   box-shadow: var(--shadow-neon);
   animation: pulse 2s ease-in-out infinite;
+  position: relative;
 }
 
 @keyframes pulse {
@@ -268,6 +269,7 @@ body::after {
   color: var(--black);
   box-shadow: 0 8px 24px rgba(204, 255, 0, 0.4);
   border: 2px solid var(--white);
+  position: relative;
 }
 
 .btn.primary:hover {
