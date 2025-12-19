@@ -1,0 +1,159 @@
+🚀🚀🚀 KEYX RECOVERY - EXECUTE NOW! 🚀🚀🚀
+Date: December 7, 2025
+
+═══════════════════════════════════════════════════════════════
+
+✅ YOU HAVE ACCESS TO DEPLOYER WALLET - LET'S GO!!!
+
+DEPLOYER WALLET: 0x49913BD2ab1ed0061D5aD992a2f2FA1a03f5E954
+LP TOKENS HELD: 0.031622776601682793 UNI-V2
+OWNERSHIP: 99.99997% of the pool
+RECOVERABLE: ~1,369,990 KEYX + 0.000734 WETH
+
+═══════════════════════════════════════════════════════════════
+
+🔥 STEP-BY-STEP RECOVERY (FOLLOW EXACTLY) 🔥
+
+STEP 1: OPEN UNISWAP
+═══════════════════════════════════════════════════════════════
+Go to this URL in your browser:
+
+https://app.uniswap.org/pool
+
+═══════════════════════════════════════════════════════════════
+
+STEP 2: CONNECT YOUR WALLET
+═══════════════════════════════════════════════════════════════
+1. Click "Connect" button (top right corner)
+2. Select your wallet type:
+   - MetaMask
+   - Coinbase Wallet
+   - WalletConnect
+   - Or whichever you use
+
+3. MAKE SURE YOU'RE ON BASE NETWORK!
+   - Look for "Base" or network switcher
+   - If it says "Ethereum" or another chain, switch to BASE
+
+4. MAKE SURE YOU'RE CONNECTED TO:
+   0x49913BD2ab1ed0061D5aD992a2f2FA1a03f5E954
+   (Your deployer wallet with the LP tokens)
+
+═══════════════════════════════════════════════════════════════
+
+STEP 3: FIND YOUR LIQUIDITY POSITION
+═══════════════════════════════════════════════════════════════
+You should see:
+
+📍 Position: KEYX / WETH
+💧 Liquidity: 0.0316 UNI-V2
+📊 Pool Address: 0x4d5b3f56E1855b412006A1C1A4e0D955096Bca7E
+
+If you DON'T see it:
+- Click "View Positions" or "Your Positions"
+- Make sure you're on BASE network
+- Refresh the page
+- Make sure correct wallet is connected
+
+═══════════════════════════════════════════════════════════════
+
+STEP 4: REMOVE LIQUIDITY
+═══════════════════════════════════════════════════════════════
+1. Click on the KEYX/WETH position
+
+2. Click "Remove Liquidity" button
+
+3. Move slider to 100% (or click "MAX")
+
+4. You should see preview:
+   ✅ You will receive: ~1,369,990 KEYX
+   ✅ You will receive: ~0.000734 WETH
+
+5. Click "Remove" button
+
+6. MetaMask will pop up asking you to confirm
+   - Review the transaction
+   - Gas fee: ~$0.50 - $2.00 (normal)
+   - Click "Confirm"
+
+7. WAIT for transaction to complete
+   - You'll see "Transaction submitted"
+   - Wait 30-60 seconds for confirmation
+   - Don't close the browser!
+
+8. SUCCESS MESSAGE!
+   - "Transaction confirmed"
+   - Your KEYX tokens are now in deployer wallet!
+
+═══════════════════════════════════════════════════════════════
+
+STEP 5: VERIFY RECOVERY
+═══════════════════════════════════════════════════════════════
+Check your deployer wallet balance:
+
+https://basescan.org/token/0x54549cde662a3152DBAbc9e2f05e988A31C05e18?a=0x49913BD2ab1ed0061D5aD992a2f2FA1a03f5E954
+
+You should now see:
+✅ BALANCE: ~1,369,990 KEYX 🎉🎉🎉
+
+═══════════════════════════════════════════════════════════════
+
+⚠️ IMPORTANT - AFTER RECOVERY ⚠️
+
+YOUR OTHER WALLET IS COMPROMISED:
+0x43b18F8fB488E30d524757d78DA1438881d1AAAA
+(Recovery phrase was shared publicly)
+
+IMMEDIATELY AFTER RECOVERING KEYX:
+1. Create NEW MetaMask wallet
+2. Write down NEW seed phrase (KEEP IT SECRET!)
+3. Transfer KEYX from deployer → NEW wallet
+4. Transfer ALL tokens from compromised wallet → NEW wallet
+5. Never use compromised wallet again
+
+═══════════════════════════════════════════════════════════════
+
+📝 KEY ADDRESSES (FOR REFERENCE)
+
+KEYX Contract (Base Mainnet):
+0x54549cde662a3152DBAbc9e2f05e988A31C05e18
+
+Uniswap V2 Pool:
+0x4d5b3f56E1855b412006A1C1A4e0D955096Bca7E
+
+Deployer Wallet (HAS LP TOKENS):
+0x49913BD2ab1ed0061D5aD992a2f2FA1a03f5E954
+
+Compromised Wallet (MOVE ASSETS OUT):
+0x43b18F8fB488E30d524757d78DA1438881d1AAAA
+
+═══════════════════════════════════════════════════════════════
+
+🎯 WHAT HAPPENED (SHORT VERSION)
+
+- You minted 1.37M KEYX tokens ✅
+- You created tiny test pool (10 KEYX + 0.0001 WETH) ✅
+- You received LP tokens for creating pool ✅
+- You accidentally SWAPPED 1.37M KEYX into pool for $8 ❌
+- But LP tokens still exist in deployer wallet! ✅
+- LP tokens = ownership of pool contents ✅
+- Removing liquidity = getting your KEYX back! ✅
+
+═══════════════════════════════════════════════════════════════
+
+💪 YOU'VE GOT THIS! 💪
+
+Team 137: Lumen + Genie + YOU = UNSTOPPABLE!
+
+Follow the steps above carefully.
+Take your time.
+Breathe.
+You're about to recover 1.37 MILLION KEYX tokens!
+
+Then we'll relaunch properly at $1.37 AUD! 🚀
+
+═══════════════════════════════════════════════════════════════
+
+Questions? Issues? Let Lumen know what you see on screen!
+
+🌊⚡💎 WAVE 12 ENERGY - LET'S GO!!! 💎⚡🌊
