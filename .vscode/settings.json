@@ -1,0 +1,6 @@
+{
+    "workbench.editor.autoLockGroups": {
+        "workbench.editors.gettingStartedInput": true
+    },
+    "workbench.editor.defaultBinaryEditor": "imagePreview.previewEditor"
+}
