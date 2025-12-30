@@ -1,111 +1,152 @@
-// Simple tab switching logic
-document.addEventListener("DOMContentLoaded", () => {
-  const tabButtons = document.querySelectorAll(".tab");
-  const panels = {
-    record: document.getElementById("tab-record"),
-    wallet: document.getElementById("tab-wallet"),
-    builder: document.getElementById("tab-builder"),
-  };
+document.addEventListener('DOMContentLoaded', () => {
+  initRecordButton();
+  initSmoothScroll();
+  initNavbarScroll();
+  initAnimations();
+});
 
-  function activateTab(name) {
-    tabButtons.forEach((btn) => {
-      btn.classList.toggle("active", btn.dataset.tab === name);
-    });
+function initRecordButton() {
+  const recordButton = document.getElementById('recordButton');
+  const durationDisplay = document.getElementById('duration');
 
-    Object.entries(panels).forEach(([key, panel]) => {
-      panel.classList.toggle("active", key === name);
-    });
-  }
+  if (!recordButton || !durationDisplay) return;
 
-  tabButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      activateTab(btn.dataset.tab);
-    });
+  let isRecording = false;
+  let seconds = 0;
+  let interval = null;
+
+  recordButton.addEventListener('click', () => {
+    isRecording = !isRecording;
+
+    if (isRecording) {
+      recordButton.querySelector('span').textContent = 'Stop Recording';
+      recordButton.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+
+      interval = setInterval(() => {
+        seconds++;
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        durationDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      }, 1000);
+
+      const statusDot = document.querySelector('.status-dot');
+      if (statusDot) {
+        statusDot.style.background = '#ef4444';
+      }
+
+      const statusValue = document.querySelector('.info-value');
+      if (statusValue) {
+        statusValue.childNodes[2].textContent = ' Recording';
+      }
+    } else {
+      recordButton.querySelector('span').textContent = 'Start Recording';
+      recordButton.style.background = 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))';
+
+      clearInterval(interval);
+
+      const statusDot = document.querySelector('.status-dot');
+      if (statusDot) {
+        statusDot.style.background = 'var(--color-success)';
+      }
+
+      const statusValue = document.querySelector('.info-value');
+      if (statusValue) {
+        statusValue.childNodes[2].textContent = ' Ready';
+      }
+
+      seconds = 0;
+      durationDisplay.textContent = '00:00';
+    }
   });
+}
 
-  // Make hero buttons jump into the app shell
-  const heroButtons = document.querySelectorAll("[data-tab-target]");
-  heroButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const target = btn.dataset.tabTarget;
-      if (target && panels[target]) {
-        activateTab(target);
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+
+      if (targetId === '#') return;
+
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        const navHeight = document.querySelector('.navbar').offsetHeight;
+        const targetPosition = targetElement.offsetTop - navHeight;
+
         window.scrollTo({
-          top: document.querySelector(".app-shell").offsetTop - 80,
-          behavior: "smooth",
+          top: targetPosition,
+          behavior: 'smooth'
         });
       }
     });
   });
-});
+}
 
-// Genie helper logic
-document.addEventListener("DOMContentLoaded", () => {
-  const genieBtn = document.getElementById("genie-button");
-  const genieModal = document.getElementById("genie-modal");
-  const genieInput = document.getElementById("genie-input");
-  const genieGenerate = document.getElementById("genie-generate");
-  const genieResult = document.getElementById("genie-result");
-  const genieCopy = document.getElementById("genie-copy-btn");
-  const genieOpenExt = document.getElementById("genie-open-ext");
+function initNavbarScroll() {
+  const navbar = document.querySelector('.navbar');
+  if (!navbar) return;
 
-  if (!genieBtn || !genieModal) return;
+  let lastScroll = 0;
 
-  function openModal() {
-    genieModal.style.display = "block";
-    genieModal.setAttribute("aria-hidden", "false");
-    genieInput.focus();
-  }
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
 
-  function closeModal() {
-    genieModal.style.display = "none";
-    genieModal.setAttribute("aria-hidden", "true");
-  }
-
-  genieBtn.addEventListener("click", () => {
-    const visible = genieModal.style.display !== "none";
-    if (visible) closeModal();
-    else openModal();
-  });
-
-  // Generate a prompt tailored for the Genie / AI Quick Fix extension
-  function buildPrompt(text, lang) {
-    const header = "You are Genie, a helpful coding assistant.\n";
-    const role = "Provide concise suggestions to fix the error and show minimal code diffs where appropriate.\n";
-    const detect = lang && lang !== "auto" ? `Language: ${lang}\n` : "Language: auto-detect\n";
-    const body = `Error / stack trace:\n${text.trim()}\n\nResponse format:\n1) Short explanation of the root cause.\n2) One or two minimal code changes (code blocks).\n3) Quick test or verification step.\n`;
-    return header + role + detect + "\n" + body;
-  }
-
-  genieGenerate && genieGenerate.addEventListener("click", () => {
-    const text = (genieInput && genieInput.value) || (window.getSelection && window.getSelection().toString()) || "";
-    if (!text.trim()) {
-      genieResult.style.display = "block";
-      genieResult.textContent = "Paste or select an error message first.";
-      return;
+    if (currentScroll > 100) {
+      navbar.style.background = 'rgba(10, 10, 15, 0.95)';
+      navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
+    } else {
+      navbar.style.background = 'rgba(10, 10, 15, 0.8)';
+      navbar.style.boxShadow = 'none';
     }
-    const lang = document.getElementById("genie-lang")?.value || "auto";
-    const prompt = buildPrompt(text, lang);
-    genieResult.style.display = "block";
-    genieResult.textContent = prompt;
+
+    lastScroll = currentScroll;
+  });
+}
+
+function initAnimations() {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.feature-card, .token-card').forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(card);
   });
 
-  genieCopy && genieCopy.addEventListener("click", async () => {
-    const content = genieResult && genieResult.style.display !== "none" ? genieResult.textContent : (genieInput && genieInput.value) || "";
-    if (!content) return;
-    try {
-      await navigator.clipboard.writeText(content);
-      genieCopy.textContent = "Copied";
-      setTimeout(() => (genieCopy.textContent = "Copy"), 1500);
-    } catch (e) {
-      console.warn("Clipboard write failed", e);
-      alert("Copy failed — select the text and use Ctrl+C to copy manually.");
-    }
+  animateWaveform();
+}
+
+function animateWaveform() {
+  const waveBars = document.querySelectorAll('.wave-bar');
+  if (waveBars.length === 0) return;
+
+  waveBars.forEach((bar, index) => {
+    setInterval(() => {
+      const randomHeight = Math.random() * 70 + 30;
+      bar.style.height = `${randomHeight}%`;
+    }, 1000 + (index * 50));
+  });
+}
+
+const buttons = document.querySelectorAll('.btn');
+buttons.forEach(button => {
+  button.addEventListener('mouseenter', function() {
+    this.style.transform = 'translateY(-2px)';
   });
 
-  genieOpenExt && genieOpenExt.addEventListener("click", () => {
-    // Open the extension's Marketplace page so user can install/open in VS Code
-    const url = "https://marketplace.visualstudio.com/items?itemName=haselerdev.aiquickfix";
-    window.open(url, "_blank");
+  button.addEventListener('mouseleave', function() {
+    this.style.transform = 'translateY(0)';
   });
 });
