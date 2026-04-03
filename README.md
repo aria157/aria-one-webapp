@@ -25,5 +25,3 @@ Notes
 - The web UI cannot directly call a VS Code extension from the browser. It prepares and copies a high-quality prompt for you to paste into the extension, which runs inside VS Code.
 - The CLI helper tries common clipboard utilities (`wl-copy`, `xclip`, `pbcopy`) and will print the prompt if no clipboard helper is found.
 
-If you'd like, I can open a PR with these changes (includes `index.html`/`Script.js` updates and `scripts/genie_prompt.sh`).
-
