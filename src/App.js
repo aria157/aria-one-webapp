@@ -1,13 +1,114 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('home');
+  const [settingsSection, setSettingsSection] = useState('manage-wallets');
+  const [wallets, setWallets] = useState([
+    {
+      id: 1,
+      name: 'Artist Primary',
+      address: '0x1A2B3C4D5E6F7890abcd1234567890ABCDEF1234',
+      balance: '5,200 KEYX',
+      recordings: 24,
+      certificates: 12,
+      isActive: true,
+      isVerified: true,
+      type: 'Smart Wallet',
+      created: 'Dec 28, 2024',
+    },
+    {
+      id: 2,
+      name: 'Collection Vault',
+      address: '0x9F8E7D6C5B4A3210fedcba9876543210FEDCBA98',
+      balance: '1,800 KEYX',
+      recordings: 8,
+      certificates: 4,
+      isActive: false,
+      isVerified: true,
+      type: 'Smart Wallet',
+      created: 'Dec 15, 2024',
+    },
+    {
+      id: 3,
+      name: 'Collaboration Wallet',
+      address: '0xA1B2C3D4E5F6071829304756AABB1122CCDD3344',
+      balance: '320 KEYX',
+      recordings: 3,
+      certificates: 1,
+      isActive: false,
+      isVerified: false,
+      type: 'External',
+      created: 'Jan 5, 2025',
+    },
+  ]);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [walletToRemove, setWalletToRemove] = useState(null);
+  const [newWalletName, setNewWalletName] = useState('');
+  const [newWalletAddress, setNewWalletAddress] = useState('');
+  const [addWalletError, setAddWalletError] = useState('');
+
+  function formatSectionName(section) {
+    if (section === 'manage-wallets') return 'Manage Wallets';
+    return section.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  }
+
+  function handleSetActiveWallet(id) {
+    setWallets(prev => prev.map(w => ({ ...w, isActive: w.id === id })));
+  }
+
+  function handleRemoveWallet(id) {
+    setWallets(prev => prev.filter(w => w.id !== id));
+    setWalletToRemove(null);
+  }
+
+  function handleAddWallet(e) {
+    e.preventDefault();
+    setAddWalletError('');
+    const name = newWalletName.trim();
+    const address = newWalletAddress.trim();
+    if (!name) {
+      setAddWalletError('Wallet name is required.');
+      return;
+    }
+    if (!/^0x[0-9a-fA-F]{40}$/.test(address)) {
+      setAddWalletError('Please enter a valid Ethereum address (0x followed by 40 hex characters).');
+      return;
+    }
+    if (wallets.some(w => w.address.toLowerCase() === address.toLowerCase())) {
+      setAddWalletError('This wallet address is already connected.');
+      return;
+    }
+    const nextId = wallets.reduce((max, w) => Math.max(max, w.id), 0) + 1;
+    const newWallet = {
+      id: nextId,
+      name,
+      address,
+      balance: '0 KEYX',
+      recordings: 0,
+      certificates: 0,
+      isActive: false,
+      isVerified: false,
+      type: 'External',
+      created: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+    };
+    setWallets(prev => [...prev, newWallet]);
+    setNewWalletName('');
+    setNewWalletAddress('');
+    setShowAddModal(false);
+  }
+
+  function truncateAddress(address) {
+    return `${address.slice(0, 6)}...${address.slice(-4)}`;
+  }
+
   useEffect(() => {
+    if (currentPage !== 'home') return;
     initRecordButton();
     initSmoothScroll();
     initNavbarScroll();
     initAnimations();
     initButtonHovers();
-  }, []);
+  }, [currentPage]);
 
   function initRecordButton() {
     const recordButton = document.getElementById('recordButton');
@@ -160,25 +261,215 @@ function App() {
       <nav className="navbar">
         <div className="nav-container">
           <div className="nav-brand">
-            <div className="brand-icon">
-              <svg viewBox="0 0 40 40" fill="none">
-                <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2"/>
-                <path d="M20 10 L20 30 M13 20 L27 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
+            <button
+              className="brand-btn"
+              onClick={() => setCurrentPage('home')}
+              aria-label="Go to home"
+            >
+              <div className="brand-icon">
+                <svg viewBox="0 0 40 40" fill="none">
+                  <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M20 10 L20 30 M13 20 L27 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <span className="brand-text">ARIA ONE</span>
+            </button>
+          </div>
+          {currentPage === 'home' ? (
+            <div className="nav-links">
+              <a href="#features" className="nav-link">Features</a>
+              <a href="#studio" className="nav-link">Studio</a>
+              <a href="#wallet" className="nav-link">Wallet</a>
+              <a href="#token" className="nav-link">Token</a>
             </div>
-            <span className="brand-text">ARIA ONE</span>
-          </div>
-          <div className="nav-links">
-            <a href="#features" className="nav-link">Features</a>
-            <a href="#studio" className="nav-link">Studio</a>
-            <a href="#wallet" className="nav-link">Wallet</a>
-            <a href="#token" className="nav-link">Token</a>
-          </div>
-          <button className="nav-cta">Launch App</button>
+          ) : (
+            <div className="nav-links">
+              <button className="nav-link nav-link-btn" onClick={() => setCurrentPage('home')}>
+                ← Back to Home
+              </button>
+              <span className="nav-breadcrumb">Settings / {formatSectionName(settingsSection)}</span>
+            </div>
+          )}
+          <button
+            className="nav-cta"
+            onClick={() => {
+              setCurrentPage('settings');
+              setSettingsSection('manage-wallets');
+            }}
+          >
+            {currentPage === 'settings' ? 'Settings' : 'Launch App'}
+          </button>
         </div>
       </nav>
 
-      <main>
+      {currentPage === 'settings' ? (
+        <div className="settings-page">
+          <aside className="settings-sidebar">
+            <div className="settings-sidebar-header">
+              <h2>Settings</h2>
+            </div>
+            <nav className="settings-nav">
+              <button
+                className={`settings-nav-item${settingsSection === 'profile' ? ' active' : ''}`}
+                onClick={() => setSettingsSection('profile')}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+                Profile
+              </button>
+              <button
+                className={`settings-nav-item${settingsSection === 'manage-wallets' ? ' active' : ''}`}
+                onClick={() => setSettingsSection('manage-wallets')}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <rect x="2" y="6" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M16 13a1 1 0 100 2 1 1 0 000-2z" fill="currentColor"/>
+                  <path d="M2 10h20" stroke="currentColor" strokeWidth="2"/>
+                </svg>
+                Manage Wallets
+              </button>
+              <button
+                className={`settings-nav-item${settingsSection === 'security' ? ' active' : ''}`}
+                onClick={() => setSettingsSection('security')}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2L4 5v7c0 5 3.5 9.7 8 11 4.5-1.3 8-6 8-11V5l-8-3z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+                </svg>
+                Security
+              </button>
+              <button
+                className={`settings-nav-item${settingsSection === 'notifications' ? ' active' : ''}`}
+                onClick={() => setSettingsSection('notifications')}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+                  <path d="M13.73 21a2 2 0 01-3.46 0" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+                Notifications
+              </button>
+            </nav>
+          </aside>
+
+          <main className="settings-main">
+            {settingsSection === 'manage-wallets' && (
+              <div className="manage-wallets">
+                <div className="manage-wallets-header">
+                  <div>
+                    <h1 className="manage-wallets-title">Manage Wallets</h1>
+                    <p className="manage-wallets-subtitle">
+                      Connect and manage all your artist wallets in one place.
+                    </p>
+                  </div>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => { setShowAddModal(true); setAddWalletError(''); }}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                    </svg>
+                    Add Wallet
+                  </button>
+                </div>
+
+                <div className="wallets-list">
+                  {wallets.length === 0 && (
+                    <div className="wallets-empty">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                        <rect x="2" y="6" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                        <path d="M16 13a1 1 0 100 2 1 1 0 000-2z" fill="currentColor"/>
+                        <path d="M2 10h20" stroke="currentColor" strokeWidth="1.5"/>
+                      </svg>
+                      <p>No wallets connected yet.</p>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => { setShowAddModal(true); setAddWalletError(''); }}
+                      >
+                        Add Your First Wallet
+                      </button>
+                    </div>
+                  )}
+                  {wallets.map(wallet => (
+                    <div key={wallet.id} className={`wallet-list-item${wallet.isActive ? ' wallet-list-item--active' : ''}`}>
+                      <div className="wallet-list-item-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <rect x="2" y="6" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="2"/>
+                          <path d="M16 13a1 1 0 100 2 1 1 0 000-2z" fill="currentColor"/>
+                          <path d="M2 10h20" stroke="currentColor" strokeWidth="2"/>
+                        </svg>
+                      </div>
+                      <div className="wallet-list-item-info">
+                        <div className="wallet-list-item-top">
+                          <span className="wallet-list-item-name">{wallet.name}</span>
+                          <div className="wallet-list-item-badges">
+                            {wallet.isActive && (
+                              <span className="wallet-badge-active">Active</span>
+                            )}
+                            {wallet.isVerified && (
+                              <span className="wallet-badge-verified">Verified</span>
+                            )}
+                            <span className="wallet-badge-type">{wallet.type}</span>
+                          </div>
+                        </div>
+                        <div className="wallet-list-item-address">
+                          <span title={wallet.address}>{truncateAddress(wallet.address)}</span>
+                        </div>
+                        <div className="wallet-list-item-stats">
+                          <span><strong>{wallet.recordings}</strong> Recordings</span>
+                          <span><strong>{wallet.certificates}</strong> Certificates</span>
+                          <span><strong>{wallet.balance}</strong></span>
+                          <span className="wallet-list-item-date">Added {wallet.created}</span>
+                        </div>
+                      </div>
+                      <div className="wallet-list-item-actions">
+                        {!wallet.isActive && (
+                          <button
+                            className="btn btn-secondary btn-sm"
+                            onClick={() => handleSetActiveWallet(wallet.id)}
+                          >
+                            Set Active
+                          </button>
+                        )}
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => setWalletToRemove(wallet)}
+                          aria-label={`Remove ${wallet.name}`}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {settingsSection === 'profile' && (
+              <div className="settings-placeholder">
+                <h1 className="manage-wallets-title">Profile</h1>
+                <p className="manage-wallets-subtitle">Manage your artist profile and identity settings.</p>
+              </div>
+            )}
+
+            {settingsSection === 'security' && (
+              <div className="settings-placeholder">
+                <h1 className="manage-wallets-title">Security</h1>
+                <p className="manage-wallets-subtitle">Manage your security settings, recovery phrase, and two-factor authentication.</p>
+              </div>
+            )}
+
+            {settingsSection === 'notifications' && (
+              <div className="settings-placeholder">
+                <h1 className="manage-wallets-title">Notifications</h1>
+                <p className="manage-wallets-subtitle">Manage your notification preferences and alerts.</p>
+              </div>
+            )}
+          </main>
+        </div>
+      ) : (
+        <>
+        <main>
         <section className="hero">
           <div className="hero-background">
             <div className="hero-circle circle-1"></div>
@@ -401,7 +692,12 @@ function App() {
                   </div>
                 </div>
 
-                <button className="btn btn-primary">Create Your Wallet</button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => { setCurrentPage('settings'); setSettingsSection('manage-wallets'); }}
+                >
+                  Create Your Wallet
+                </button>
               </div>
 
               <div className="wallet-preview">
@@ -603,6 +899,85 @@ function App() {
           </div>
         </div>
       </footer>
+      </>
+      )}
+
+      {showAddModal && (
+        <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShowAddModal(false); }}>
+          <div className="modal">
+            <div className="modal-header">
+              <h2>Add Wallet</h2>
+              <button className="modal-close" onClick={() => setShowAddModal(false)} aria-label="Close">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </button>
+            </div>
+            <form className="modal-form" onSubmit={handleAddWallet}>
+              <div className="form-group">
+                <label htmlFor="walletName">Wallet Name</label>
+                <input
+                  id="walletName"
+                  type="text"
+                  className="form-input"
+                  placeholder="e.g. Artist Primary"
+                  value={newWalletName}
+                  onChange={e => setNewWalletName(e.target.value)}
+                  maxLength={40}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="walletAddress">Wallet Address</label>
+                <input
+                  id="walletAddress"
+                  type="text"
+                  className="form-input"
+                  placeholder="0x..."
+                  value={newWalletAddress}
+                  onChange={e => setNewWalletAddress(e.target.value)}
+                />
+              </div>
+              {addWalletError && (
+                <p className="form-error">{addWalletError}</p>
+              )}
+              <div className="modal-actions">
+                <button type="button" className="btn btn-secondary" onClick={() => setShowAddModal(false)}>
+                  Cancel
+                </button>
+                <button type="submit" className="btn btn-primary">
+                  Connect Wallet
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {walletToRemove !== null && (
+        <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setWalletToRemove(null); }}>
+          <div className="modal modal--sm">
+            <div className="modal-header">
+              <h2>Remove Wallet</h2>
+              <button className="modal-close" onClick={() => setWalletToRemove(null)} aria-label="Close">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </button>
+            </div>
+            <p className="modal-body-text">
+              Are you sure you want to remove <strong>{walletToRemove.name}</strong> from your connected wallets? This action cannot be undone.
+            </p>
+            <div className="modal-actions">
+              <button className="btn btn-secondary" onClick={() => setWalletToRemove(null)}>
+                Cancel
+              </button>
+              <button className="btn btn-danger" onClick={() => handleRemoveWallet(walletToRemove.id)}>
+                Remove Wallet
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
