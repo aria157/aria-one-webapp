@@ -85,6 +85,6 @@ Secrets and environment-specific overrides must stay in GitHub/Vercel/local envi
 
 ## Immediate follow-up
 
-- Rotate the previously committed private key and API keys because removing them from the current branch does not erase git history.
+- **Critical: rotate the previously committed private key and API keys immediately, before the next deployment, because removing them from the current branch does not erase git history.**
 - Fill in missing Sepolia and Base Sepolia contract addresses before enabling preview/staging deployments.
 - Decide whether staging is required as a separate Vercel environment or can stay aligned to preview.

@@ -11,7 +11,14 @@ function loadEnvFile(fileName) {
     return;
   }
 
-  const lines = fs.readFileSync(filePath, "utf8").split(/\r?\n/);
+  let lines = [];
+
+  try {
+    lines = fs.readFileSync(filePath, "utf8").split(/\r?\n/);
+  } catch (error) {
+    console.warn(`Unable to read ${fileName}: ${error.message}`);
+    return;
+  }
 
   for (const line of lines) {
     const trimmed = line.trim();
@@ -44,7 +51,7 @@ function normalizePrivateKey(value) {
   }
 
   const trimmed = value.trim();
-  const placeholderPattern = /your|placeholder|changeme|example/i;
+  const placeholderPattern = /\b(your|placeholder|changeme|example)\b/i;
 
   if (!trimmed || placeholderPattern.test(trimmed)) {
     return "";
