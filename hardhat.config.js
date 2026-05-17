@@ -52,12 +52,17 @@ function normalizePrivateKey(value) {
 
   const trimmed = value.trim();
   const placeholderPattern = /\b(your|placeholder|changeme|example)\b/i;
+  const normalized = trimmed.startsWith("0x") ? trimmed.slice(2) : trimmed;
 
   if (!trimmed || placeholderPattern.test(trimmed)) {
     return "";
   }
 
-  return trimmed.startsWith("0x") ? trimmed : `0x${trimmed}`;
+  if (!/^[a-fA-F0-9]{64}$/.test(normalized)) {
+    return "";
+  }
+
+  return `0x${normalized}`;
 }
 
 const deployerPrivateKey = normalizePrivateKey(process.env.HARDHAT_DEPLOYER_PRIVATE_KEY);

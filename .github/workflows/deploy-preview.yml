@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   deploy-preview:
+    # Forked pull requests do not have access to repository deployment secrets.
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     environment: preview

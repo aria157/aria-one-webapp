@@ -133,7 +133,7 @@ function App() {
         },
       });
     } catch (error) {
-      console.error('Unable to add KEYX token to wallet', error);
+      console.error('Unable to add KEYX token to wallet:', error?.message || error);
     }
   }
 
