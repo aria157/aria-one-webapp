@@ -1,0 +1,38 @@
+{
+  "defaultNetwork": "base",
+  "networks": {
+    "base": {
+      "name": "Base Mainnet",
+      "chainId": 8453,
+      "rpcUrl": "https://mainnet.base.org",
+      "alchemyNetwork": "base-mainnet",
+      "explorerUrl": "https://basescan.org",
+      "tokenSymbol": "KEYX",
+      "tokenDecimals": 18,
+      "contractAddress": "0x54549cde662a3152DBAbc9e2f05e988A31C05e18",
+      "swapUrl": "https://app.uniswap.org/swap?chain=base&inputCurrency=ETH&outputCurrency=0x54549cde662a3152DBAbc9e2f05e988A31C05e18"
+    },
+    "baseSepolia": {
+      "name": "Base Sepolia",
+      "chainId": 84532,
+      "rpcUrl": "https://sepolia.base.org",
+      "alchemyNetwork": "base-sepolia",
+      "explorerUrl": "https://sepolia.basescan.org",
+      "tokenSymbol": "KEYX",
+      "tokenDecimals": 18,
+      "contractAddress": "",
+      "swapUrl": ""
+    },
+    "sepolia": {
+      "name": "Ethereum Sepolia",
+      "chainId": 11155111,
+      "rpcUrl": "https://ethereum-sepolia-rpc.publicnode.com",
+      "alchemyNetwork": "eth-sepolia",
+      "explorerUrl": "https://sepolia.etherscan.io",
+      "tokenSymbol": "KEYX",
+      "tokenDecimals": 18,
+      "contractAddress": "",
+      "swapUrl": ""
+    }
+  }
+}

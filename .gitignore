@@ -3,3 +3,6 @@
 node_modules
 .env
 build
+artifacts
+cache
+KEYX_RECOVERY_NOW.txt

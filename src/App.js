@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { runtimeConfig } from './config/runtime';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -99,6 +100,41 @@ function App() {
 
   function truncateAddress(address) {
     return `${address.slice(0, 6)}...${address.slice(-4)}`;
+  }
+
+  function openExternalLink(url) {
+    if (!url) {
+      return;
+    }
+
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
+  async function handleAddTokenToWallet() {
+    if (!runtimeConfig.contractAddress) {
+      return;
+    }
+
+    if (!window.ethereum?.request) {
+      openExternalLink(runtimeConfig.explorerAddressUrl);
+      return;
+    }
+
+    try {
+      await window.ethereum.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20',
+          options: {
+            address: runtimeConfig.contractAddress,
+            symbol: runtimeConfig.network.tokenSymbol,
+            decimals: runtimeConfig.network.tokenDecimals,
+          },
+        },
+      });
+    } catch (error) {
+      console.error('Unable to add KEYX token to wallet', error);
+    }
   }
 
   useEffect(() => {
@@ -805,6 +841,63 @@ function App() {
                 </div>
                 <h3>Participate</h3>
                 <p>Vote on platform decisions, propose new features, and shape the future of vocal artist identity.</p>
+              </div>
+            </div>
+
+            <div className="token-config-panel">
+              <div className="token-config-header">
+                <div>
+                  <span className="section-tag">Live Configuration</span>
+                  <h3>Current KEYX integration target</h3>
+                </div>
+                <p>
+                  The frontend now reads its network, explorer, and contract configuration from environment-driven runtime settings.
+                </p>
+              </div>
+
+              <div className="token-config-grid">
+                <div className="token-config-item">
+                  <span>Environment</span>
+                  <strong>{runtimeConfig.appEnv}</strong>
+                </div>
+                <div className="token-config-item">
+                  <span>Network</span>
+                  <strong>{runtimeConfig.network.name}</strong>
+                </div>
+                <div className="token-config-item">
+                  <span>Chain ID</span>
+                  <strong>{runtimeConfig.network.chainId}</strong>
+                </div>
+                <div className="token-config-item">
+                  <span>RPC endpoint</span>
+                  <strong>{runtimeConfig.rpcUrl}</strong>
+                </div>
+                <div className="token-config-item">
+                  <span>API endpoint</span>
+                  <strong>{runtimeConfig.apiBaseUrl || 'Not configured'}</strong>
+                </div>
+                <div className="token-config-item">
+                  <span>Contract</span>
+                  <strong>
+                    {runtimeConfig.contractAddress ? truncateAddress(runtimeConfig.contractAddress) : 'Not configured'}
+                  </strong>
+                </div>
+              </div>
+
+              <div className="token-config-actions">
+                <button className="btn btn-primary" onClick={handleAddTokenToWallet} disabled={!runtimeConfig.contractAddress}>
+                  Add KEYX to Wallet
+                </button>
+                {runtimeConfig.explorerAddressUrl && (
+                  <button className="btn btn-secondary" onClick={() => openExternalLink(runtimeConfig.explorerAddressUrl)}>
+                    View Contract
+                  </button>
+                )}
+                {runtimeConfig.swapUrl && (
+                  <button className="btn btn-secondary" onClick={() => openExternalLink(runtimeConfig.swapUrl)}>
+                    Open Swap
+                  </button>
+                )}
               </div>
             </div>
           </div>

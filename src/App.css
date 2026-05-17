@@ -858,6 +858,70 @@ body {
   line-height: 1.7;
 }
 
+.token-config-panel {
+  margin-top: var(--spacing-xl);
+  padding: var(--spacing-xl);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.token-config-header {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-lg);
+  align-items: flex-start;
+  margin-bottom: var(--spacing-lg);
+}
+
+.token-config-header h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin-top: var(--spacing-sm);
+}
+
+.token-config-header p {
+  max-width: 420px;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.token-config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.token-config-item {
+  padding: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.token-config-item span {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.token-config-item strong {
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+
+.token-config-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
 .cta {
   padding: var(--spacing-3xl) 0;
   position: relative;

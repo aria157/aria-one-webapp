@@ -1,46 +1,120 @@
 require("@nomicfoundation/hardhat-toolbox");
 
+const fs = require("fs");
+const path = require("path");
+const sharedNetworks = require("./src/config/networks.json");
+
+function loadEnvFile(fileName) {
+  const filePath = path.join(__dirname, fileName);
+
+  if (!fs.existsSync(filePath)) {
+    return;
+  }
+
+  const lines = fs.readFileSync(filePath, "utf8").split(/\r?\n/);
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    if (!trimmed || trimmed.startsWith("#")) {
+      continue;
+    }
+
+    const separatorIndex = trimmed.indexOf("=");
+
+    if (separatorIndex === -1) {
+      continue;
+    }
+
+    const key = trimmed.slice(0, separatorIndex).trim();
+    const value = trimmed.slice(separatorIndex + 1).trim().replace(/^['"]|['"]$/g, "");
+
+    if (key && !process.env[key]) {
+      process.env[key] = value;
+    }
+  }
+}
+
+loadEnvFile(".env");
+loadEnvFile(".env.local");
+
+function normalizePrivateKey(value) {
+  if (!value) {
+    return "";
+  }
+
+  const trimmed = value.trim();
+
+  if (!trimmed || trimmed.toLowerCase().includes("your_")) {
+    return "";
+  }
+
+  return trimmed.startsWith("0x") ? trimmed : `0x${trimmed}`;
+}
+
+const deployerPrivateKey = normalizePrivateKey(process.env.HARDHAT_DEPLOYER_PRIVATE_KEY);
+const accounts = deployerPrivateKey ? [deployerPrivateKey] : [];
+
+const rpcUrls = {
+  sepolia: process.env.ETH_SEPOLIA_RPC_URL || sharedNetworks.networks.sepolia.rpcUrl,
+  base: process.env.BASE_MAINNET_RPC_URL || sharedNetworks.networks.base.rpcUrl,
+  baseSepolia: process.env.BASE_SEPOLIA_RPC_URL || sharedNetworks.networks.baseSepolia.rpcUrl,
+};
+
 module.exports = {
   solidity: {
     version: "0.8.20",
     settings: {
       optimizer: {
         enabled: true,
-        runs: 200
+        runs: 200,
       },
-      evmVersion: "shanghai"
-    }
+      evmVersion: "shanghai",
+    },
   },
   networks: {
     sepolia: {
-      url: "https://eth-sepolia.g.alchemy.com/v2/A2HFBOITe9WJOi0-mO7YA",
-      accounts: ["bb442aac0eaf633368d4936021808fedf86c6cd080c00956db4d7d52ad11a281"]
+      url: rpcUrls.sepolia,
+      accounts,
+      chainId: sharedNetworks.networks.sepolia.chainId,
     },
     base: {
-      url: "https://mainnet.base.org", // Base mainnet
-      accounts: ["bb442aac0eaf633368d4936021808fedf86c6cd080c00956db4d7d52ad11a281"],
-      chainId: 8453
+      url: rpcUrls.base,
+      accounts,
+      chainId: sharedNetworks.networks.base.chainId,
     },
     baseSepolia: {
-      url: "https://sepolia.base.org", // Base testnet
-      accounts: ["bb442aac0eaf633368d4936021808fedf86c6cd080c00956db4d7d52ad11a281"],
-      chainId: 84532
-    }
+      url: rpcUrls.baseSepolia,
+      accounts,
+      chainId: sharedNetworks.networks.baseSepolia.chainId,
+    },
   },
   etherscan: {
-    apiKey: "BY29V8PDBPNSM84EUW5ARYVUG4EJ2J1D97",
+    apiKey: {
+      sepolia: process.env.ETHERSCAN_API_KEY || "",
+      base: process.env.BASESCAN_API_KEY || process.env.ETHERSCAN_API_KEY || "",
+      baseSepolia: process.env.BASESCAN_API_KEY || process.env.ETHERSCAN_API_KEY || "",
+    },
     customChains: [
       {
         network: "base",
-        chainId: 8453,
+        chainId: sharedNetworks.networks.base.chainId,
         urls: {
           apiURL: "https://api.basescan.org/api",
-          browserURL: "https://basescan.org"
-        }
-      }
-    ]
+          browserURL: sharedNetworks.networks.base.explorerUrl,
+        },
+      },
+      {
+        network: "baseSepolia",
+        chainId: sharedNetworks.networks.baseSepolia.chainId,
+        urls: {
+          apiURL: "https://api-sepolia.basescan.org/api",
+          browserURL: sharedNetworks.networks.baseSepolia.explorerUrl,
+        },
+      },
+    ],
   },
   sourcify: {
-    enabled: false
-  }
+    enabled: false,
+  },
 };
