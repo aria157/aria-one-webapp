@@ -44,8 +44,9 @@ function normalizePrivateKey(value) {
   }
 
   const trimmed = value.trim();
+  const placeholderPattern = /your|placeholder|changeme|example/i;
 
-  if (!trimmed || trimmed.toLowerCase().includes("your_")) {
+  if (!trimmed || placeholderPattern.test(trimmed)) {
     return "";
   }
 

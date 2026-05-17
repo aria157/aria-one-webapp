@@ -2,7 +2,7 @@
 
 ## Canonical network configuration
 
-The repo now treats `/home/runner/work/aria-one-webapp/aria-one-webapp/src/config/networks.json` as the public source of truth for:
+The repo now treats `src/config/networks.json` as the public source of truth for:
 
 - supported networks
 - chain IDs
