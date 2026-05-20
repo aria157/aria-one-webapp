@@ -21,9 +21,9 @@ Secrets and environment-specific overrides must stay in GitHub/Vercel/local envi
 
 | Environment | Frontend URL | API base URL | Web3 network | RPC source | Contract address source | Explorer | Deployment target | Required secrets |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| local | `http://localhost:3000` | `REACT_APP_API_BASE_URL` | `baseSepolia` | `BASE_SEPOLIA_RPC_URL` or public fallback | `REACT_APP_BASE_SEPOLIA_CONTRACT_ADDRESS` | Base Sepolia | local machine | `REACT_APP_ALCHEMY_API_KEY` optional, `HARDHAT_DEPLOYER_PRIVATE_KEY` optional |
-| preview | Vercel preview URL | preview API URL | `baseSepolia` | `BASE_SEPOLIA_RPC_URL` | `REACT_APP_BASE_SEPOLIA_CONTRACT_ADDRESS` | Base Sepolia | Vercel preview | `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID` |
-| staging | team-defined staging URL | staging API URL | `baseSepolia` unless promoted | `BASE_SEPOLIA_RPC_URL` | `REACT_APP_BASE_SEPOLIA_CONTRACT_ADDRESS` | Base Sepolia | optional Vercel environment | same as preview plus any staging API secrets |
+| local | `http://localhost:3000` | `REACT_APP_API_BASE_URL` | `base` | `BASE_MAINNET_RPC_URL` or public fallback | `REACT_APP_BASE_CONTRACT_ADDRESS` | Base mainnet | local machine | `REACT_APP_ALCHEMY_API_KEY` optional, `HARDHAT_DEPLOYER_PRIVATE_KEY` optional |
+| preview | Vercel preview URL | preview API URL | `base` | `BASE_MAINNET_RPC_URL` | `REACT_APP_BASE_CONTRACT_ADDRESS` | Base mainnet | Vercel preview | `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID` |
+| staging | team-defined staging URL | staging API URL | `base` | `BASE_MAINNET_RPC_URL` | `REACT_APP_BASE_CONTRACT_ADDRESS` | Base mainnet | optional Vercel environment | same as preview plus any staging API secrets |
 | production | production Vercel domain | production API URL | `base` | `BASE_MAINNET_RPC_URL` | `REACT_APP_BASE_CONTRACT_ADDRESS` | Base mainnet | Vercel production | `BASESCAN_API_KEY`, `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID` |
 
 ## Required GitHub secrets
@@ -34,7 +34,6 @@ Secrets and environment-specific overrides must stay in GitHub/Vercel/local envi
 - `VERCEL_ORG_ID`
 - `VERCEL_PROJECT_ID`
 - `ETH_SEPOLIA_RPC_URL`
-- `BASE_SEPOLIA_RPC_URL`
 - `BASE_MAINNET_RPC_URL`
 - `HARDHAT_DEPLOYER_PRIVATE_KEY`
 - `ETHERSCAN_API_KEY`
@@ -48,7 +47,6 @@ Secrets and environment-specific overrides must stay in GitHub/Vercel/local envi
 - `REACT_APP_WEB3_NETWORK`
 - `REACT_APP_CONTRACT_ADDRESS`
 - `REACT_APP_BASE_CONTRACT_ADDRESS`
-- `REACT_APP_BASE_SEPOLIA_CONTRACT_ADDRESS`
 - `REACT_APP_SEPOLIA_CONTRACT_ADDRESS`
 - `REACT_APP_ALCHEMY_API_KEY`
 
@@ -89,5 +87,5 @@ Secrets and environment-specific overrides must stay in GitHub/Vercel/local envi
 
 ## Immediate follow-up
 
-- Fill in missing Sepolia and Base Sepolia contract addresses before enabling preview/staging deployments.
+- Fill in any remaining Sepolia contract addresses only if Ethereum Sepolia support is still needed.
 - Decide whether staging is required as a separate Vercel environment or can stay aligned to preview.

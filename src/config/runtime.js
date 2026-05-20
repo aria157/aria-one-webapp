@@ -2,7 +2,6 @@ import networks from './networks.json';
 
 const networkOverrides = {
   base: process.env.REACT_APP_BASE_CONTRACT_ADDRESS || process.env.REACT_APP_CONTRACT_ADDRESS || '',
-  baseSepolia: process.env.REACT_APP_BASE_SEPOLIA_CONTRACT_ADDRESS || '',
   sepolia: process.env.REACT_APP_SEPOLIA_CONTRACT_ADDRESS || '',
 };
 

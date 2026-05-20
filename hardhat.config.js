@@ -71,7 +71,6 @@ const accounts = deployerPrivateKey ? [deployerPrivateKey] : [];
 const rpcUrls = {
   sepolia: process.env.ETH_SEPOLIA_RPC_URL || sharedNetworks.networks.sepolia.rpcUrl,
   base: process.env.BASE_MAINNET_RPC_URL || sharedNetworks.networks.base.rpcUrl,
-  baseSepolia: process.env.BASE_SEPOLIA_RPC_URL || sharedNetworks.networks.baseSepolia.rpcUrl,
 };
 
 module.exports = {
@@ -96,17 +95,11 @@ module.exports = {
       accounts,
       chainId: sharedNetworks.networks.base.chainId,
     },
-    baseSepolia: {
-      url: rpcUrls.baseSepolia,
-      accounts,
-      chainId: sharedNetworks.networks.baseSepolia.chainId,
-    },
   },
   etherscan: {
     apiKey: {
       sepolia: process.env.ETHERSCAN_API_KEY || "",
       base: process.env.BASESCAN_API_KEY || process.env.ETHERSCAN_API_KEY || "",
-      baseSepolia: process.env.BASESCAN_API_KEY || process.env.ETHERSCAN_API_KEY || "",
     },
     customChains: [
       {
@@ -115,14 +108,6 @@ module.exports = {
         urls: {
           apiURL: "https://api.basescan.org/api",
           browserURL: sharedNetworks.networks.base.explorerUrl,
-        },
-      },
-      {
-        network: "baseSepolia",
-        chainId: sharedNetworks.networks.baseSepolia.chainId,
-        urls: {
-          apiURL: "https://api-sepolia.basescan.org/api",
-          browserURL: sharedNetworks.networks.baseSepolia.explorerUrl,
         },
       },
     ],
